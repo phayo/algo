@@ -15,9 +15,9 @@ public class MinSumAfterKOperations {
         System.out.println(minimumSum(List.of(10, 20, 7), 4));
     }
 
-    public static int minimumSum(List<Integer> arr, int k){
+    public static int minimumSum(List<Integer> num, int k){
         PriorityQueue<Integer> pQ = new PriorityQueue<>(Comparator.reverseOrder());
-        pQ.addAll(arr);
+        pQ.addAll(num);
 
         while(k > 0 && !pQ.isEmpty()){
             Integer i = pQ.poll();

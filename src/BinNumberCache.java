@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 
 public class BinNumberCache {
     public static void main(String[] args) {
@@ -10,11 +11,11 @@ public class BinNumberCache {
         CardTypeCache cache = buildCache(Arrays.asList(r2, r4, r3, r1));
 
         String e1 = "4111111111111111";
-        String e2 = "4300999999991028122";
+        String e2 = "435000000000";
         String e3 = "43500199999901028122";
         String e4 = "5999999999991028122";
 
-        System.out.println("Card type of " + e4 + " is: " + cache.get(e4));
+        System.out.println("Card type of " + e2 + " is: " + cache.get(e2));
     }
 
     static final class BinRange{
@@ -48,41 +49,33 @@ public class BinNumberCache {
     }
 
     static class CardTypeMapCache implements CardTypeCache{
-        TreeMap<Long, String> rangeStartMap;
-        Map<Long, Long> rangeEndMap;
+        TreeMap<Long, BinRange> rangeMap;
 
-        CardTypeMapCache(TreeMap<Long, String> startMap, Map<Long, Long> endMap){
-            this.rangeEndMap = endMap;
-            this.rangeStartMap = startMap;
+        CardTypeMapCache(TreeMap<Long, BinRange> startMap){
+            this.rangeMap = startMap;
         }
 
         @Override
         public String get(final String cardNumber) {
             String bin = cardNumber.substring(0, 12);
             Long card = Long.parseLong(bin);
-            final Map.Entry<Long, String> floor = rangeStartMap.floorEntry(card);
+            final Map.Entry<Long, BinRange> floor = rangeMap.floorEntry(card);
 
-            if(floor == null){
-                return null;
-            }
-
-            return Optional.ofNullable(rangeEndMap.get(floor.getKey()))
-                    .filter(end -> card <= end)
-                    .map(end -> floor.getValue())
+            return Optional.ofNullable(rangeMap.floorEntry(card))
+                    .filter(entry -> card <= Long.parseLong(entry.getValue().end))
+                    .map(Entry::getValue)
+                    .map(binRange -> binRange.cardType)
                     .orElse(null);
         }
     }
 
     public static CardTypeCache buildCache(List<BinRange> binRanges){
-        TreeMap<Long, String> rangeStartMap = new TreeMap<>();
-        HashMap<Long, Long> rangeEndMap = new HashMap<>();
+        TreeMap<Long, BinRange> rangeMap = new TreeMap<>();
         for(BinRange range: binRanges){
             Long x = Long.parseLong(range.start);
-            Long y = Long.parseLong(range.end);
-            rangeStartMap.put(x, range.cardType);
-            rangeEndMap.put(x, y);
+            rangeMap.put(x, range);
         }
 
-        return new CardTypeMapCache(rangeStartMap, rangeEndMap);
+        return new CardTypeMapCache(rangeMap);
     }
 }
