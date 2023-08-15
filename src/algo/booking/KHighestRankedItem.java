@@ -155,7 +155,7 @@ public class KHighestRankedItem {
 
         List<List<Integer>> prices = positionsWithinPriceRange(grid, pricing)
                 .stream().filter(p -> pathGrid[p.get(0)][p.get(1)] != Integer.MAX_VALUE)
-                .collect(Collectors.toList());
+                .toList();
 
         PriorityQueue<List<Integer>> pq =  new PriorityQueue<>( // Adding the comparator based on specified rank: path > price > row > col
                 (x, y) -> {

@@ -1,5 +1,11 @@
 package algo.booking;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.stream.Collectors;
+
 /**
  * <h2><a href="https://leetcode.com/problems/all-paths-from-source-to-target/">LeetCode: All Paths From Source to Target</a></h2>
  *
@@ -33,5 +39,90 @@ package algo.booking;
  * 	<li>The input graph is <strong>guaranteed</strong> to be a <strong>DAG</strong>.</li>
  * </ul>
  */
-public class AllPathsFromSourceToTarget {
+public class HotelItineraryPlanning {
+
+    public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        //Pseudo code
+        // start from graph[0] get all locations for each location continue until we find the end return the ist of path
+        
+        List<List<Integer>> result = new ArrayList<>();
+
+        dfs(graph, 0, graph.length - 1, new ArrayList<>(), result);
+
+        return result;
+    }
+
+    public static List<Integer> allPathsSourceTargetAdapted(int[][] graph) {
+        //Pseudo code
+        // start from graph[0] get all locations for each location continue until we find the end return the ist of path
+
+        PriorityQueue<List<Integer>> result = new PriorityQueue<>(
+                (x,y) -> Integer.compare(y.size(), x.size())
+        );
+
+        dfsAdapted(graph, 0, graph.length - 1, new ArrayList<>(), result);
+
+        return result.isEmpty() ? List.of() : result.poll();
+    }
+
+    private static void dfsAdapted(int[][] graph, int current, int end, List<Integer> path, PriorityQueue<List<Integer>> result){
+
+        path.add(current);
+        if(current == end){
+            return;
+        }
+
+        for (int i : graph[current]){
+            List<Integer> newPath = new ArrayList<>(path);
+            dfsAdapted(graph, i, end, newPath, result);
+
+            // In the other solution we may make start to be the return destination (end) also. In order to simulate a round trip
+            // We might also have to calculate for HERE flight/hotel when we reach the end in other to determine if it is within budget.
+            if(!newPath.isEmpty() && newPath.get(newPath.size() - 1) == end){
+                result.add(newPath);
+            }
+        }
+    }
+
+    private static void dfs(int[][] graph, int current, int end, List<Integer> path, List<List<Integer>> result){
+
+        path.add(current);
+        if(current == end){
+            return;
+        }
+
+        for (int i : graph[current]){
+            List<Integer> newPath = new ArrayList<>(path);
+            dfs(graph, i, end, newPath, result);
+
+            if(!newPath.isEmpty() && newPath.get(newPath.size() - 1) == end){
+                result.add(newPath);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] graph = { // [[2,0,3],[2,0,3],[2,0,3]]
+                {1,2},
+                {3},
+                {3},
+                {}
+        };
+
+        int[][] matrix = { // [[2,0,3],[2,0,3],[2,0,3]]
+                {4,3,1},
+                {3,2,4},
+                {3},
+                {4},
+                {}
+        };
+
+        allPathsSourceTarget(matrix)
+                .forEach(path -> System.out.println("Found path: " + path.stream().map(Objects::toString).collect(Collectors.joining("->"))));
+
+        System.out.println();
+
+        System.out.println("Longest Itinerary " + allPathsSourceTargetAdapted(matrix).stream().map(Objects::toString).collect(Collectors.joining("->")));
+
+    }
 }
