@@ -1,4 +1,4 @@
-package algo;
+package algo.booking;
 
 import java.io.File;
 import java.math.BigInteger;
