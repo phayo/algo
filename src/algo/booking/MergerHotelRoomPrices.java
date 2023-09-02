@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Stack;
+import java.util.TreeMap;
 
 /**
  * Merge two hotel objects based on there high and low price range. Hotel objects were not in order.
@@ -48,6 +50,27 @@ public class MergerHotelRoomPrices {
         return al;
     }
 
+    public static List<int[]> mergeHotelRoomsTreemap(int[][] hotels){
+
+        Arrays.sort(hotels, Comparator.comparingInt((int[] a) -> a[1]));
+
+        TreeMap<Integer, int[]> tm = new TreeMap<>();
+
+        for (int[] hotel: hotels){
+            // check if treemap contains the curr hotel end price -1
+            Entry<Integer, int[]> found = tm.floorEntry(hotel[0]);
+            if (found != null && found.getKey() + 1 == hotel[0]){
+                tm.put(hotel[1], new int[]{found.getValue()[0], hotel[1]});
+                tm.remove(found.getKey());
+                continue;
+            }
+
+            tm.put(hotel[1], hotel);
+        }
+
+        return tm.values().stream().toList();
+    }
+
     public static void main(String[] args) {
         int[][] matrix = {
                 {1,5},
@@ -58,7 +81,7 @@ public class MergerHotelRoomPrices {
                 {4,7}
         };
 
-        mergeHotelRooms(matrix)
+        mergeHotelRoomsTreemap(matrix)
                 .forEach( i -> System.out.println(Arrays.toString(i)));
     }
 }

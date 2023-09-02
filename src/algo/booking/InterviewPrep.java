@@ -13,4 +13,8 @@ package algo.booking;
  * -- <a href="https://leetcode.com/discuss/interview-experience/1395715/Booking.com-or-Backend-developer-or-Amsterdam-or-July-2021-Offer">10</a>
  */
 public class InterviewPrep {
+    /*
+    * Say we got the black box from airplace crach, There is huge set of log files with contents unsorted. We need to fetch the lastet half an hour log.
+    * design an suitable algorithm to fetch latest half an hour log statement. the formate of log statement would be <DD-MM-YYYY HH:MM:SS:sss> <LogStatement> example - 02-01-2014 10:02:01:001 abcd
+    * */
 }
