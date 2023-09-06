@@ -50,7 +50,7 @@ What about the cards that are not fraud anymore? How wil they be removed from ou
 
 Scenario 2 -
 We have the cache of the fraud cards, that is refreshed daily. For every booking, we can easily check against the cache if the card exists (and if it’s actually updated recently). If it is found, we reject the transaction instantaneously.
-
+ 
 The solution does not make a distinction between the 2 modes of payment, because I did not see a reason. (Could be a trick requirement?) We are being given the CC details during the confirmation of the booking. In terms of identifying fraud, it does not matter if the payment is being taken at that point by booking.com, or charged by the merchant later. We can always charge the card instantly, and later reject the booking and make a refund to that card in case it is fraud. The design stays the same in my opinion. Opinions are welcome!
 
 ## Case 2

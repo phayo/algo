@@ -1,0 +1,59 @@
+SystemDesign Prep
+
+Requirement Clarification Questions
+
+- What is the primary goal or purpose of this system?
+
+# Understanding the core objective helps you prioritize features and design choices.
+- Who are the primary users or stakeholders of the system?
+
+Knowing the user base helps tailor the system to their needs.
+- What are the specific features and functionalities expected from the system?
+
+List and prioritize the must-have features versus nice-to-have ones.
+- Are there any existing systems or technologies that this system needs to integrate with?
+
+Integration requirements can significantly impact the design.
+- What are the performance expectations and scalability requirements?
+
+Understand the system's expected load and how it should handle growth.
+- What are the security and compliance requirements?
+
+This is crucial, especially for systems handling sensitive data.
+- What is the expected data volume and data types that the system will handle?
+
+This helps determine database and storage needs.
+- What are the response time and availability requirements?
+
+Define how responsive the system needs to be and its uptime expectations.
+- What are the constraints or limitations, such as budget, time, or technology stack?
+
+These constraints can guide your design choices.
+- What are the potential risks or challenges associated with this system?
+
+Identifying risks early allows you to plan for mitigation.
+- Is there a preferred architectural style or technology stack?
+
+Understanding preferred technologies helps align the design with the organization's standards.
+- What are the future growth and maintenance considerations for the system?
+
+Think about how the system can adapt to future needs and how it will be maintained.
+- What are the user experience (UX) and user interface (UI) design requirements?
+
+Consider the visual and interactive aspects of the system.
+- Are there any specific performance or load testing requirements?
+
+Determine how the system's performance will be validated.
+- What are the backup, disaster recovery, and data retention requirements?
+
+These are critical for data safety and business continuity.
+- How will the system be monitored and what are the logging requirements?
+
+Plan for system monitoring, error handling, and debugging.
+- What are the localization and internationalization requirements, if any?
+
+Determine where and how the system will be deployed.
+- How will user authentication and authorization be handled?
+
+Define how users will access the system and what permissions they have.
+- Are there any specific compliance standards or regulations that the system must adhere to?
