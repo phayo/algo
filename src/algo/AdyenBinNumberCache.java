@@ -3,7 +3,7 @@ package algo;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class BinNumberCache {
+public class AdyenBinNumberCache {
     public static void main(String[] args) {
         BinRange r1 = new BinRange("400000000000", "419999999999", "visa");
         BinRange r2 = new BinRange("420008000000", "420089999999", "visadebit");
